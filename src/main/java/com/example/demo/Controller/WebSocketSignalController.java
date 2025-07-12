@@ -12,13 +12,12 @@ public class WebSocketSignalController {
 
     private final SimpMessagingTemplate messagingTemplate;
 
-    @Autowired
     public WebSocketSignalController(SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 
     @MessageMapping("/signal/{code}")
-    public void signalHandler(@DestinationVariable String code, @Payload String signalPayload) {
-        messagingTemplate.convertAndSend("/topic/signal/" + code, signalPayload);
+    public void handleSignal(@DestinationVariable String code, @Payload String signal) {
+        messagingTemplate.convertAndSend("/topic/signal/" + code, signal);
     }
 }
